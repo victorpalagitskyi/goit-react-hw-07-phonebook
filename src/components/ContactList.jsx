@@ -23,7 +23,7 @@ const ContactList = () => {
         <div>Empty</div>
       ) : (
         <ul>
-          {visibleContacts.map(({ name, id, number }) => (
+          {visibleContacts().map(({ name, id, number }) => (
             <li key={id}>
               <p>{name}</p>
               <p>{number}</p>
