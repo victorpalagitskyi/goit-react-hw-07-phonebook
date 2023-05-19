@@ -1,11 +1,15 @@
 import Notiflix from "notiflix";
 import { useDispatch, useSelector } from "react-redux";
 import {  deleteContact } from "redux/operation";
+import { selectContacts, selectFilter, selectLoadingStatus } from "redux/selectors";
 
-const ContactList = () => { 
-    const contacts = useSelector(state => state.contacts)
-    const filters = useSelector(state => state.filters)
 
+
+
+const ContactList = () => {
+  const contacts = useSelector(selectContacts)
+  const filters = useSelector(selectFilter)
+  const isLoading = useSelector(selectLoadingStatus)
   const dispatch = useDispatch();
   
   const onDeleteContact = e => {
@@ -13,30 +17,30 @@ const ContactList = () => {
     Notiflix.Notify.success(`Сontact deleted successfully`);
   };
 
-   const visibleContacts = () =>
+  const visibleContacts = () =>
     contacts.filter(contact =>
       contact.name.toLowerCase().includes(filters)
     );
-  return (
+  
+  
+  
+   return (
     <>
-      {visibleContacts.length === 0 ? (
-        <div>Empty</div>
-      ) : (
-        <ul>
-          {visibleContacts().map(({ name, id, number }) => (
-            <li key={id}>
-              <p>{name}</p>
-              <p>{number}</p>
-              <button type="button" id={id} onClick={onDeleteContact}>
-                Delete
-              </button>
-            </li>
-          ))}
-        </ul>
-      )}
+    
+      {isLoading ? <div>Loading...</div> : ''}
+      <ul>
+        {!isLoading && visibleContacts().map(({ name, id, number }) => (
+          <li key={id}>
+            <p>{name}</p>
+            <p>{number}</p>
+            <button type="button" id={id} onClick={onDeleteContact}>
+              Delete
+            </button>
+          </li>
+        ))}
+      </ul>
     </>
   );
 }
-
 
 export default ContactList

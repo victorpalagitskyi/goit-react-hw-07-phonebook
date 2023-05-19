@@ -1,7 +1,8 @@
 import { ErrorMessage, Field, Form, Formik } from "formik";
 import Notiflix from "notiflix";
 import { useDispatch, useSelector } from 'react-redux';
-import { createContact } from "redux/operation";
+import { addContact} from "redux/operation";
+import { selectContacts } from "redux/selectors";
 
 const initialValues = {
   name: '',
@@ -9,7 +10,8 @@ const initialValues = {
 };
 
 const ContactForm = () => { 
-    const contacts = useSelector(state => state.contacts);
+  
+    const contacts = useSelector(selectContacts);
     const dispatch = useDispatch();
 
 
@@ -20,7 +22,7 @@ const ContactForm = () => {
       return;
     } else
           
-      dispatch(createContact(name, number));
+      dispatch(addContact(name, number));
     Notiflix.Notify.success(`You added ${name} to phonebook`);
     action.resetForm();
   };
