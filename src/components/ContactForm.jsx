@@ -15,14 +15,14 @@ const ContactForm = () => {
     const dispatch = useDispatch();
 
 
-    const handleSubmit = ({ name, number }, action) => {
+  const handleSubmit = ({ name, number }, action) => {
     
     if (contacts.find(contact => contact.name === name) !== undefined) {
       Notiflix.Notify.failure(`${name} already in your contact book`);
       return;
     } else
           
-      dispatch(addContact(name, number));
+      dispatch(addContact({name, number}));
     Notiflix.Notify.success(`You added ${name} to phonebook`);
     action.resetForm();
   };
