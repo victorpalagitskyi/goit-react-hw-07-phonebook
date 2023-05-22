@@ -19,7 +19,7 @@ const ContactList = () => {
 
   const visibleContacts = () =>
     contacts.filter(contact =>
-      contact.name.toLowerCase().includes(filters)
+      contact.name.toLowerCase().includes(filters.toLowerCase())
     );
   
   
