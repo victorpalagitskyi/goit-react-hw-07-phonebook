@@ -1,16 +1,22 @@
 import Notiflix from "notiflix";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {  deleteContact } from "redux/operation";
+import {  contactsApi, deleteContact } from "redux/operation";
 import { selectContacts, selectFilter, selectLoadingStatus } from "redux/selectors";
 
 
 
 
 const ContactList = () => {
+
   const contacts = useSelector(selectContacts)
   const filters = useSelector(selectFilter)
   const isLoading = useSelector(selectLoadingStatus)
   const dispatch = useDispatch();
+  
+   useEffect(() => {
+    dispatch(contactsApi());
+  }, [dispatch]);
   
   const onDeleteContact = e => {
     dispatch(deleteContact(e.target.id));
